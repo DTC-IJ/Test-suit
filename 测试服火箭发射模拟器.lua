@@ -3,26 +3,26 @@ game.RunService.Stepped:Connect(function()
         if not v.Character:FindFirstChild("Highlight") then
             Instance.new("Highlight", v.Character)
             BG = Instance.new("BillboardGui", v.Character)
-            TL = Instance.new("TextLabel", BG)
+            Tl = Instance.new("TextLabel", BG)
             BG.AlwaysOnTop = true
             BG.Size = UDim2.new(0, 100, 0, 50)
             BG.StudsOffset = Vector3.new(0, 4, 0)
-            TL.BackgroundTransparency = 1
-            TL.Size = UDim2.new(0, 100, 0, 50)
+            Tl.BackgroundTransparency = 1
+            Tl.Size = UDim2.new(0, 100, 0, 50)
         end
         v.Character.BillboardGui.TextLabel.Text = v.Name.."\nHealth: "..math.round(v.Character.Humanoid.Health).."\nDistance: "..math.round((v.Character.HumanoidRootPart.CFrame.Position-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Position).Magnitude)
         v.Character.BillboardGui.TextLabel.TextColor = v.TeamColor
-        v.Character.BillboardGui.Enabled = EP
-        v.Character.Highlight.Enabled = EP
+        v.Character.BillboardGui.Enabled = XC
+        v.Character.Highlight.Enabled = XC
     end
 end)
 
 game.RunService.Stepped:Connect(function()
-    if LT or LK then
+    if SE or AQ then
         for i, v in pairs(game.Players:GetPlayers()) do
             if string.find(v.Name, User) then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
-                if LK then
+                if AQ then
                     game.ReplicatedStorage.meleeEvent:FireServer(v)
                 end
             end
@@ -57,7 +57,7 @@ game.RunService.Stepped:Connect(function()
 end)
 
 function Seat()
-    Value = All or LT or LK
+    Value = All or SE or AQ
     game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled("Seated", not Value)
 end
 
@@ -72,6 +72,12 @@ game.RunService.RenderStepped:Connect(function(step)
         TL.Text = math.round(1/step)
     end
 end)
+
+TL = Instance.new("TextLabel", Instance.new("ScreenGui", game.CoreGui))
+TL.BackgroundTransparency = 1
+TL.Size = UDim2.new(0, 100, 0, 50)
+TL.Visible = false
+TL.TextWrapped = true
 
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/AWDX-DYVB/test/main/%E6%B2%B3%E6%B5%81%E6%9C%80%E9%87%8D%E8%A6%81%E7%9A%84%E6%BA%90%E7%A0%81.lua"))()
 local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/ownckn/choose/main/%E9%9D%A2%E6%9D%BFUI.lua"))()
@@ -104,7 +110,7 @@ tab.newButton("查看当前服务器日志", "日志-可以看到使用功能报
 game.VirtualInputManager:SendKeyEvent(true, "F9", false, game)
 end)
 
-tab.newButton("Dex Explorer", "无敌模式-Dex-可以使用这个东西抓取到一些数据-而制作更好的代码-不是工作人员或-者就-是不会用的就不要使用了", function()
+tab.newButton("Dex Explorer", "Dex-可以使用这个东西抓取到一些数据-而制作更好的代码-不是工作人员或-者就-是不会用的就不要使用了", function()
 OrionLib:MakeNotification({
 	        Name = "正在启动(Dex Explorer)",
             Content = "正 在 加 载 Dex - Explorer (启动中耐心等待)",
@@ -126,11 +132,11 @@ end)
 
 tab.newLabel("")
 
-tab.newDropdown("类型-没弄好-暂时用不了", "类型-我忘了这个是干啥用的-你们自己去研究吧-不是工作人员或-者就-是不会用的就不要使用了-有问题暂时用不了", {"FullName", "FPS"}, function(Value)
+tab.newDropdown("类型-没弄好-暂时用不了", "类型-我忘了这个是干啥用的-你们自己去研究吧-不是工作人员或-者就-是不会用的就不要使用了", {"FullName", "FPS"}, function(Value)
     Type = Value
 end)
 
-tab.newToggle("可见", "显示类型-我忘了这个是干啥用的-你们自己去研究吧-不是工作人员或-者就-是不会用的就不要使用了-有问题暂时用不了", false, function(Value)
+tab.newToggle("显示类型", "显示类型-我忘了这个是干啥用的-你们自己去研究吧-不是工作人员或-者就-是不会用的就不要使用了", false, function(Value)
    TL.Visible = Value
 end)
 
@@ -189,7 +195,7 @@ tab1.newToggle("穿墙", "穿墙-可以穿透任何东西-无视任何障碍-有
 end)
 
 tab1.newToggle("显示玩家", "显示玩家-可以看到任何玩家被墙壁挡住的也能看见-可以让你更精确的定位玩家在哪里", false, function(Value)
-  EP = Value
+  XC = Value
 end)
 
 tab1.newLabel("锁定杀戮-和-锁定传送")
@@ -199,12 +205,12 @@ tab1.newInput("用户名", "输入玩家用户名可以一直锁定那个玩家"
 end)
 
 tab1.newToggle("锁定传送", "锁定传送-可以让你的人物一直跟随到那个玩家的身边-前提是必须在上面输入玩家的用户名才可以传送", false, function(Value)
-  LT = Value
+  SE = Value
     Seat()
 end)
 
 tab1.newToggle("锁定杀戮", "锁定杀戮-可以一直追踪一个人-让他一直死亡-需要先在上面输入玩家用户名才可使用-只适配一小部分地图", false, function(Value)
-  LK = Value
+  AQ = Value
     Seat()
 end)
 
