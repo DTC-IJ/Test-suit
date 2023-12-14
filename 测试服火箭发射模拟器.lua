@@ -78,7 +78,7 @@ local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/
 
 local window = DrRayLibrary:Load(identifyexecutor(), "Default")
 
-local tab = DrRayLibrary.newTab("测试服空壳", "rbxassetid://15571104634")
+local tab = DrRayLibrary.newTab("火箭发射模拟器", "rbxassetid://15571104634")
 
 tab.newLabel("这个只是展示-是那款游戏的脚本-没有任何用处")
 
